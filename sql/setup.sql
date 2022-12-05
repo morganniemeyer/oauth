@@ -11,7 +11,7 @@ CREATE TABLE users (
   last_name VARCHAR NOT NULL
 );
 
-CREATE TALE github_users (
+CREATE TABLE github_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   login TEXT NOT NULL,
   email TEXT,
