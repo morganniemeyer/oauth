@@ -36,9 +36,13 @@ describe('github auth', () => {
     });
   });
   it('DELETE /api/v1/github signs out a user', async () => {
-    const res = await request(app).get('/api/v1/github/dashboard');
+    const agent = request.agent(app);
+    await agent.get('/api/v1/github/callback?code=42');
+    const bye = await agent.delete('/api/v1/github/dashboard');
+    expect(bye.body.message).toEqual('Signed out successfully!');
+    const check = await agent.get('/api/v1/github/dashboard');
 
-    expect(res.body).toEqual({
+    expect(check.body).toEqual({
       message: 'You must be signed in to continue',
       status: 401,
     });
