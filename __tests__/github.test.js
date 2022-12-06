@@ -35,4 +35,12 @@ describe('github auth', () => {
       exp: expect.any(Number),
     });
   });
+  it('DELETE /api/v1/github signs out a user', async () => {
+    const res = await request(app).get('/api/v1/github/dashboard');
+
+    expect(res.body).toEqual({
+      message: 'You must be signed in to continue',
+      status: 401,
+    });
+  });
 });
